@@ -5,8 +5,6 @@ from dotenv import load_dotenv, set_key
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-fanart_api_key = "3dbcd21be550346d2a54dc516f804cc4"
-thetvdb_api_key = "052722d0-9e9a-4a37-ad28-b0949719e1c2"
 THEMOVIEDB_API_KEY = os.getenv("THEMOVIEDB_API_KEY")
 THEMOVIEDB_API_TOKEN = "Bearer " + os.getenv("THEMOVIEDB_API_TOKEN")
 THEMOVIEDB_SEARCH_LINK = "https://api.themoviedb.org/3/search/movie?query={}&year={}&api_key={}"
@@ -41,8 +39,8 @@ def api_test(type_ = "omdb"):
 
 def change_api(type_,api_key, api_token = None):
     if type_ == "omdb":
-        set_key(dotenv_path="./.env", key_to_set="OMDB_API_KEY", value_to_set=api_key)
+        set_key(dotenv_path=dotenv_path, key_to_set="OMDB_API_KEY", value_to_set=api_key)
     if type_ == "tmdb":
-        set_key(dotenv_path="./.env", key_to_set="THEMOVIEDB_API_KEY", value_to_set=api_key)
-        set_key(dotenv_path="./.env", key_to_set="THEMOVIEDB_API_TOKEN", value_to_set=api_token)
+        set_key(dotenv_path=dotenv_path, key_to_set="THEMOVIEDB_API_KEY", value_to_set=api_key)
+        set_key(dotenv_path=dotenv_path, key_to_set="THEMOVIEDB_API_TOKEN", value_to_set=api_token)
 
