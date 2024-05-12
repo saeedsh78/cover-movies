@@ -1,6 +1,6 @@
 import os
-from config import api_test
-from folder_cover import handler
+from config import api_test, change_api
+from helper_funcs.folder_cover import handler
 
 logo = """
  ██████╗ ██████╗ ██╗   ██╗███████╗██████╗       
@@ -27,8 +27,10 @@ TEXT =f"""
 [4] Coverd TV-Series By IMDBID/TMDBID
 
 [5] Test API KEY(OMDBID/TMDBID)
+[6] Renew API KEY OMDB
+[7] Renew API KEY/API TOKEN TMDB
 
-[6] Star Project in GitHub ()
+[8] Star Project in GitHub (https://github.com/saeedsh78/cover-movies)
 
 [0] Exit...
 
@@ -79,7 +81,18 @@ if __name__ == "__main__":
                     input("Press any key...")
                     
                 case 6:
-                    
+                    api_key = input(":) Insert API KEY OMDB: ")
+                    change_api("omdb", api_key=api_key)
+                    input("To Make Changes, You Need To Restart The Program, Please Press any key...")
+                case 7:
+                    api_key = input(":) Insert API KEY TMDB: ")
+                    api_token = input(":) Insert API TOKEN TMDB: ")
+                    change_api("tmdb", api_key=api_key, api_token=api_token)
+                    input("To Make Changes, You Need To Restart The Program, Please Press any key...")
+                case 8:
+                    os.startfile("https://github.com/saeedsh78/cover-movies")
+                    print("Thanks for giving the project a star *_*\n")
+                    input("Press any key...")
                 case 0:
                     exit()
 

@@ -1,10 +1,10 @@
 import os
 import shutil
 from PIL import Image, ImageOps, ImageDraw
-from cast_handler import cast_writer
-from downloader import download_file
-from information import get_all_info, get_all_info_tv
-from name_support import movie_name, series_name
+from helper_funcs.cast_handler import cast_writer
+from helper_funcs.downloader import download_file
+from helper_funcs.information import get_all_info, get_all_info_tv
+from helper_funcs.name_support import movie_name, series_name
 
 def add_corners(im_path, rad):
     im = Image.open(im_path)
@@ -30,19 +30,6 @@ def convert(poster_path, icon_path):
     img = ImageOps.fit(img, (300, 300)).convert("RGBA")
     img.save(image_corner_path)
     return image_corner_path
-    # datas = img.getdata()
-    # newData = []
-    # for item in datas:
-    #     if item[0] == 0 and item[1] == 0 and item[2] == 0:
-    #         newData.append((0, 0, 0, 0))
-    #     else:
-    #         newData.append(item)
-
-    # img.putdata(newData)
-    # img.save(icon)
-    # img.close()
-    # # os.remove(image_corner_path)
-    # return image_corner_path
     
     
 def set_cover(mk_dir_name, cast_path, poster_link):

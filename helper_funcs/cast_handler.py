@@ -1,6 +1,5 @@
-import os
-from collager import Collager, write_text
-from downloader import download_file
+from helper_funcs.collager import write_text
+from helper_funcs.downloader import download_file
 
 
 def cast_writer(cast: dict, path: str):
@@ -17,12 +16,3 @@ def cast_writer(cast: dict, path: str):
             continue
         collage_photos += [write_text(photo_path, d)]
     return
-    # width, height = (1920, 1080)
-    # lines = 5
-    
-    # collager = Collager(path)
-    # collage = collager.collage(width, height, lines)
-    # collage_path = os.path.join(path, "cast.png")
-    # collage.save(collage_path)
-    
-    # return collage_path
