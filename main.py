@@ -84,11 +84,13 @@ if __name__ == "__main__":
                     api_key = input(":) Insert API KEY OMDB: ")
                     change_api("omdb", api_key=api_key)
                     input("To Make Changes, You Need To Restart The Program, Please Press any key...")
+                    exit()
                 case 7:
                     api_key = input(":) Insert API KEY TMDB: ")
                     api_token = input(":) Insert API TOKEN TMDB: ")
                     change_api("tmdb", api_key=api_key, api_token=api_token)
                     input("To Make Changes, You Need To Restart The Program, Please Press any key...")
+                    exit()
                 case 8:
                     os.startfile("https://github.com/saeedsh78/cover-movies")
                     print("Thanks for giving the project a star *_*\n")

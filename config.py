@@ -2,7 +2,8 @@ import os
 import json
 import requests
 from dotenv import load_dotenv, set_key
-load_dotenv()
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 fanart_api_key = "3dbcd21be550346d2a54dc516f804cc4"
 thetvdb_api_key = "052722d0-9e9a-4a37-ad28-b0949719e1c2"
