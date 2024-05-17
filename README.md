@@ -1,4 +1,6 @@
-![LOGO](https://i.postimg.cc/3ryRdKt6/ascii-text-art1.png)
+<p align="center">
+   ![LOGO](https://i.postimg.cc/3ryRdKt6/ascii-text-art1.png)
+</p>
 
 ![Static Badge](https://img.shields.io/badge/python-3.6%7C3.7%7C3.8%7C3.9%7C3.10%7C3.11%7C3.12-blue)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
