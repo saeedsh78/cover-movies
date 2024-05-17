@@ -76,8 +76,9 @@ if __name__ == "__main__":
                 case 5:
                     omdb = api_test("omdb")
                     tmdb = api_test("tmdb")
-                    
-                    print(f"OMDB = {"Valid API key" if omdb else "Invalid API key"}\nTMDB = {"Valid API key" if tmdb else "Invalid API key"}")
+                    o = "Valid API key" if omdb else "Invalid API key"
+                    t = "Valid API key" if tmdb else "Invalid API key"
+                    print(f"OMDB = {o}\nTMDB = {t}")
                     input("Press any key...")
                     
                 case 6:

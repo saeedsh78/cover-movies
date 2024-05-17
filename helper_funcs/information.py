@@ -18,15 +18,21 @@ from config import (
 
 
 def get_info_omdb(imdb_id):
-    info_imdb_id = requests.get(OMDB_GET_INFO_LINK.format(imdb_id, OMDB_API_KEY))
-    result = json.loads(info_imdb_id.content)
-    return result
+    try:
+        info_imdb_id = requests.get(OMDB_GET_INFO_LINK.format(imdb_id, OMDB_API_KEY))
+        result = json.loads(info_imdb_id.content)
+        return result
+    except:
+        return {}
     
 def get_info_tmdb(tmdb_id, tv: bool = False):
-    url = THEMOVIEDB_GET_INFO_LINK_TV if tv else THEMOVIEDB_GET_INFO_LINK
-    get_info_themoviedb = requests.get(url.format(tmdb_id, THEMOVIEDB_API_KEY))
-    result = json.loads(get_info_themoviedb.content)
-    return result
+    try:
+        url = THEMOVIEDB_GET_INFO_LINK_TV if tv else THEMOVIEDB_GET_INFO_LINK
+        get_info_themoviedb = requests.get(url.format(tmdb_id, THEMOVIEDB_API_KEY))
+        result = json.loads(get_info_themoviedb.content)
+        return result
+    except:
+        return
 
 def get_cast_tmdb(tmdb_id, cast, series: bool = False):
     url = THEMOVIEDB_GET_CAST_LINK_TV if series else THEMOVIEDB_GET_CAST_LINK
@@ -81,12 +87,14 @@ def get_all_info(m_name: str = None, year: str = None, imdbid: str = None, tmdbi
         movie_id = result.get("id")
         if not movie_id:
             return None, None
-        full_name = f"{result.get("title")} ({result.get("release_date", "0000").split("-")[0]})"
+        full_name = "{} ({})".format(result.get("title"), result.get("release_date", "0000").split("-")[0])
         
     elif tmdbid:
         get_info_movie_id = get_info_tmdb(tmdbid)
+        if not get_info_movie_id:
+            return None, None
         movie_id = tmdbid
-        full_name = f"{get_info_movie_id.get("title")} ({get_info_movie_id.get("release_date", "0000").split("-")[0]})"
+        full_name = "{} ({})".format(get_info_movie_id.get("title"), get_info_movie_id.get("release_date", "0000").split("-")[0])
         
     else:
         search_themoviedb = requests.get(
@@ -100,13 +108,13 @@ def get_all_info(m_name: str = None, year: str = None, imdbid: str = None, tmdbi
                     movie_id = movie.get("id")
                     if not movie_id:
                         return None, None
-                    full_name = f"{movie.get("title")} ({year})"
+                    full_name = "{} ({})".format(movie.get("title"), year)
                     break
         elif len(result) == 1:
             movie_id = result[0].get("id")
             if not movie_id:
                 return None, None
-            full_name = f"{result[0].get("title")} ({year})"
+            full_name = "{} ({})".format(result[0].get("title"), year)
         else:
             return None, None
     if not tmdbid:
@@ -157,12 +165,14 @@ def get_all_info_tv(s_name: str = None, imdbid: str = None, tmdbid: str = None):
         series_id = result.get("id")
         if not series_id:
             return None, None
-        full_name = f"{result.get("name")} ({result.get("first_air_date", "0000").split("-")[0]})"
+        full_name = "{} ({})".format(result.get("name"), result.get("first_air_date", "0000").split("-")[0])
         
     elif tmdbid:
         get_info_series_id = get_info_tmdb(tmdbid, tv=True)
+        if not get_info_series_id:
+            return None, None
         series_id = tmdbid
-        full_name = f"{get_info_series_id.get("name")} ({get_info_series_id.get("first_air_date", "0000").split("-")[0]})"
+        full_name = "{} ({})".format(get_info_series_id.get("name"), get_info_series_id.get("first_air_date", "0000").split("-")[0])
         
     else:
         search_themoviedb = requests.get(
@@ -174,7 +184,7 @@ def get_all_info_tv(s_name: str = None, imdbid: str = None, tmdbid: str = None):
             series_id = result.get("id")
             if not series_id:
                 return None, None
-            full_name = f"{result.get("name")} ({result.get("first_air_date", "0000").split("-")[0]})"
+            full_name = "{} ({})".format(result.get("name"), result.get("first_air_date", "0000").split("-")[0])
         else:
             return None, None
     if not tmdbid:

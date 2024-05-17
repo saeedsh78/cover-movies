@@ -66,7 +66,7 @@ def chenge_cover(dir_path: str, file_path: str, all_info: dict, cast: dict):
     with open(os.path.join(mk_dir_cast, "information.txt"), "w") as i:
         for k, v in all_info.items():
             v= "|".join(v) if isinstance(v, list) else v
-            i.write(f"{k.upper()}: {v}\n\n")
+            i.write("{}: {}\n\n".format(k.upper(), v))
         i.close()
 
     shutil.move(file_path, mk_dir_name)
@@ -90,11 +90,11 @@ def chenge_cover_tv(dir_path: str, all_info: dict, cast: dict):
             if k == "seasons":
                 continue
             v= "|".join(v) if isinstance(v, list) else v
-            i.write(f"{k.upper()}: {v}\n\n")
+            i.write("{}: {}\n\n".format(k.upper(), v))
         i.close()
 
     for f in range(1, all_info["number_of_seasons"]+1):
-        dir_season = os.path.join(mk_dir_name, f"S0{f}") if f < 10 else os.path.join(mk_dir_name, f"S{f}")
+        dir_season = os.path.join(mk_dir_name, "S0{}".format(f)) if f < 10 else os.path.join(mk_dir_name, "S{}".format(f))
         
         if not os.path.exists(dir_season):
             os.mkdir(dir_season)
@@ -127,7 +127,8 @@ def handler(dir_path: str, imdbid: str = None, tmdbid: str = None, type_: str = 
             all_info, cast = get_all_info(imdbid=imdbid)
             if all_info:
                 chenge_cover(os.path.dirname(dir_path), dir_path, all_info, cast)
-                print(f"Folder icon changed successfully. | {all_info["full_name"]}")
+                name = all_info["full_name"]
+                print(f"Folder icon changed successfully. | {name}")
             
         elif tmdbid:
             if not os.path.isfile(dir_path):
@@ -135,7 +136,8 @@ def handler(dir_path: str, imdbid: str = None, tmdbid: str = None, type_: str = 
             all_info, cast = get_all_info(tmdbid=tmdbid)
             if all_info:
                 chenge_cover(os.path.dirname(dir_path), dir_path, all_info, cast)
-                print(f"Folder icon changed successfully. | {all_info["full_name"]}")
+                name = all_info["full_name"]
+                print(f"Folder icon changed successfully. | {name}")
             
         else:
             if os.path.isfile(dir_path):
@@ -146,10 +148,13 @@ def handler(dir_path: str, imdbid: str = None, tmdbid: str = None, type_: str = 
                 if os.path.isfile(file_path):
                     if file.split(".")[-1] in ["mp4", "mkv", "avi"]:
                         m_name, year = movie_name(file)
+                        if not m_name:
+                            continue
                         all_info, cast = get_all_info(m_name=m_name, year=year)
                         if all_info:
                             chenge_cover(dir_path, file_path, all_info, cast)
-                            print(f"Folder icon changed successfully. | {all_info["full_name"]}")
+                            name = all_info["full_name"]
+                            print(f"Folder icon changed successfully. | {name}")
     else:
         if imdbid:
             if os.path.isfile(dir_path):
@@ -157,7 +162,8 @@ def handler(dir_path: str, imdbid: str = None, tmdbid: str = None, type_: str = 
             all_info, cast = get_all_info_tv(imdbid=imdbid)
             if all_info:
                 chenge_cover_tv(dir_path, all_info, cast)
-                print(f"Folder icon changed successfully. | {all_info["full_name"]}")
+                name = all_info["full_name"]
+                print(f"Folder icon changed successfully. | {name}")
             
         elif tmdbid:
             if os.path.isfile(dir_path):
@@ -165,7 +171,8 @@ def handler(dir_path: str, imdbid: str = None, tmdbid: str = None, type_: str = 
             all_info, cast = get_all_info_tv(tmdbid=tmdbid)
             if all_info:
                 chenge_cover_tv(dir_path, all_info, cast)
-                print(f"Folder icon changed successfully. | {all_info["full_name"]}")
+                name = all_info["full_name"]
+                print(f"Folder icon changed successfully. | {name}")
             
         else:
             if os.path.isfile(dir_path):
@@ -180,6 +187,7 @@ def handler(dir_path: str, imdbid: str = None, tmdbid: str = None, type_: str = 
             all_info, cast = get_all_info_tv(s_name=s_name)
             if all_info:
                 chenge_cover_tv(dir_path, all_info, cast)
-                print(f"Folder icon changed successfully. | {all_info["full_name"]}")
+                name = all_info["full_name"]
+                print(f"Folder icon changed successfully. | {name}")
                     
     return
