@@ -1,10 +1,11 @@
 <p align="center">
-   ![LOGO](https://i.postimg.cc/3ryRdKt6/ascii-text-art1.png)
+   <img src="https://i.postimg.cc/3ryRdKt6/ascii-text-art1.png" />
 </p>
 
-![Static Badge](https://img.shields.io/badge/python-3.6%7C3.7%7C3.8%7C3.9%7C3.10%7C3.11%7C3.12-blue)
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-
+<p align="center">
+   <a href=""><img src="https://img.shields.io/badge/python-3.6%7C3.7%7C3.8%7C3.9%7C3.10%7C3.11%7C3.12-blue" alt="PyPI Version"></a>
+   <a href="https://choosealicense.com/licenses/mit"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+</p>
 
 # Cover Movies
 
