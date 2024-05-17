@@ -120,6 +120,7 @@ def chenge_cover_tv(dir_path: str, all_info: dict, cast: dict):
 
 
 def handler(dir_path: str, imdbid: str = None, tmdbid: str = None, type_: str = "m"):
+    dir_path = dir_path.replace("\"", "").replace("\'", "").strip()
     if not os.path.exists(dir_path):
         print("-_- Not exists path!")
         return
