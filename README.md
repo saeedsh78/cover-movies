@@ -17,7 +17,7 @@ This Python project is designed to manage and display movies and TV series. The 
 
 ## Demo
 
-[](./sample/demo.gif)
+![](./sample/demo.gif)
 
 
 ## Installation
