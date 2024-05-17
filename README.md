@@ -15,6 +15,11 @@ This Python project is designed to manage and display movies and TV series. The 
 - Save images of actors, directors, and writers
 
 
+## Demo
+
+[](./sample/demo.gif)
+
+
 ## Installation
 
 1. Clone the repository:
@@ -27,7 +32,7 @@ This Python project is designed to manage and display movies and TV series. The 
     pip install -r requirements.txt
     ```
 
-## Usage/Examples
+## Usage
 - To use this code, you must first get the **api key** from [omdbapi.com](https://www.omdbapi.com/) and [themoviedb.org](https://www.themoviedb.org/) and put it in the `.env` file.
 ```env
 OMDB_API_KEY=
