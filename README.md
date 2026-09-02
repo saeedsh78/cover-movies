@@ -6,26 +6,43 @@
 
 <p align="center">
 
-   <a href=""><img src="https://img.shields.io/badge/python-3.6%7C3.7%7C3.8%7C3.9%7C3.10%7C3.11%7C3.12-blue" alt="PyPI Version"></a>
+   <a href=""><img src="https://img.shields.io/badge/python-3.10%7C3.11%7C3.12-blue" alt="Python Version"></a>
 
    <a href="https://choosealicense.com/licenses/mit"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+
+   <a href=""><img src="https://img.shields.io/badge/platform-Windows-lightgrey" alt="Platform"></a>
 
 </p>
 
 # Cover Movies
 
-This Python project is designed to manage and display movies and TV series. The program creates folders for each movie and series, places relevant icons in the folders, and saves movie details in a text file. It also downloads and stores images of actors, directors, and writers in the respective folders.
+A desktop app (PyQt5) that tidies your movie & TV collection on Windows. Give it a movie file/folder or a series folder, and it will:
+
+- Match each title against **TMDB / OMDB** by name or by an exact IMDB/TMDB ID
+- Create a dedicated folder per title and set the poster as the **folder icon** (a standard 256px `poster.ico` + hidden `desktop.ini`, refreshed live even while Explorer windows are open)
+- Save film information to `information.txt` and **cast photos** (actors, director, writers) into the folder
+- Sort series episodes into **season folders** (`S01`, `S02`, …) with season posters; unmatched files go to `other`
+
+Everything runs in a background thread with a live log, so the UI never freezes — and you can cancel mid-run.
+
+## Screenshots
+
+| Movies | TV Series |
+|---|---|
+| ![Movies page](screenshots/movies.png) | ![Series page](screenshots/series.png) |
+
+| API Keys | About |
+|---|---|
+| ![API Keys page](screenshots/api.png) | ![About page](screenshots/about.png) |
 
 ## Features
 
-- Search and manage movies and TV series
-- Create dedicated folders for each movie and series
-- Download and place icons and movie details in the folders
-- Save images of actors, directors, and writers
-
-## Demo
-
-![Alt text](./sample/demo.gif)
+- **GUI** — dark & light "Cinema Marquee" themes, English/فارسی (full RTL), and S / M / L / XL UI scaling
+- **Movies** — File mode (single movie) or Folder mode (batch-process every video in a folder)
+- **TV Series** — episode sorting into season folders, season posters, and IMDB ID lookup
+- **API Keys page** — keys are saved to `config.json` and can be verified in-app with **Test Keys**, which reports each service's connection status in the log
+- **Network friendly** — detects the Windows system proxy automatically (VPN/proxy aware) and falls back to a direct connection if the proxy fails
+- **Standalone EXE** — build a single-file Windows executable, no Python required (see below)
 
 ## Installation
 
@@ -44,26 +61,62 @@ This Python project is designed to manage and display movies and TV series. The 
 
 ## Usage
 
-- To use this code, you must first get the **api key** from [omdbapi.com](https://www.omdbapi.com/) and [themoviedb.org](https://www.themoviedb.org/) and put it in the `.env` file.
+1. Run the app:
 
-```env
-OMDB_API_KEY=
+   ```bash
+   python gui.py
+   ```
 
-THEMOVIEDB_API_KEY=
+2. Open the **API Keys** page and enter your keys:
 
-THEMOVIEDB_API_TOKEN=
-```
+   - **OMDB API Key** — free key from [omdbapi.com](https://www.omdbapi.com/apikey.aspx)
+   - **TMDB API Key** — from [themoviedb.org](https://www.themoviedb.org/settings/api) (API Key v3)
+   - **TMDB Read Access Token** — optional (API Read Access Token v4)
 
-- Run the `gui.py` file.
+   Click **Save Keys** (stored in `config.json` next to the app) and **Test Keys** to verify — the log shows each service's result, e.g. `OMDB API: Connected successfully ('The Shawshank Redemption')`.
+
+   Alternatively, edit `config.json` directly:
+
+   ```json
+   {
+     "OMDB_API_KEY": "your_key",
+     "THEMOVIEDB_API_KEY": "your_key",
+     "THEMOVIEDB_API_TOKEN": "your_token"
+   }
+   ```
+
+3. Go to the **Movies** or **TV Series** page:
+
+   - **Movies** — pick *File* mode for a single video, or *Folder* mode to process every movie inside a folder. The ID field (`tt1375666` or `27205`) is optional but gives an exact match.
+   - **TV Series** — pick the folder that contains the episodes; they are sorted into season folders automatically.
+
+4. Click **Process** and watch the log. When finished, each title folder contains:
+
+   ```
+   Movie Title/
+   ├── poster.ico        (folder icon — shown automatically)
+   ├── desktop.ini       (hidden)
+   ├── information.txt
+   ├── Movie Name - Actor.jpg / - Director.jpg / - Writer.jpg
+   └── Movie Name.jpg    (poster)
+   ```
+
+### Build a standalone EXE
+
+Requires Python + the dependencies above, then:
 
 ```bash
-python gui.py
+python -m PyInstaller --noconfirm --onefile --windowed --icon="CoverMovies.ico" --add-data "CoverMovies.ico;." --name "CoverMovies" gui.py
 ```
+
+The executable is written to `dist/CoverMovies.exe`.
 
 ### Note
 
-If the folder cover is not displayed automatically, right-click the folder and go to:
+The app sets folder icons the standard Windows way and refreshes open Explorer windows automatically. If a cover ever fails to appear, right-click the folder and go to **Properties → Customize → OK** to force a refresh.
 
-**Properties → Customize → OK**
+This product uses the TMDB API but is not endorsed or certified by TMDB. Movie data is also provided by OMDB.
 
-This will refresh the folder customization and make the cover appear correctly.
+## License
+
+[MIT](https://choosealicense.com/licenses/mit)
