@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+env/
+venv/
+
+# Secrets & local config (contains real API keys)
+.env
+config.json
+
+# Packaging
+build/
+dist/
+*.spec
+
+# Scratch
+_snapshot.py

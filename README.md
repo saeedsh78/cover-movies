@@ -42,8 +42,8 @@ OMDB_API_KEY=
 THEMOVIEDB_API_KEY=
 THEMOVIEDB_API_TOKEN=
 ```
-- And run `main.py` file.
-```python
-python main.py
+- And run `gui.py` file.
+```bash
+python gui.py
 ```
 
