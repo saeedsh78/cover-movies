@@ -38,14 +38,14 @@ def set_cover(mk_dir_name, cast_path, poster_link):
         return
     create_icon = convert(poster_path, icon_path=mk_dir_name)
     
-    with open(mk_dir_name + "\\desktop.ini", "w+") as f:
+    desktop_ini_path = os.path.join(mk_dir_name, "desktop.ini")
+    with open(desktop_ini_path, "w") as f:
         f.write("[.ShellClassInfo]\n")
-        f.write("IconResource=poster.ico,0")
-        f.close()
+        f.write("IconResource=poster.ico,0\n")
 
-    os.system('attrib +r \"{}\"'.format(mk_dir_name))
-    os.system('attrib +h \"{}\\desktop.ini\"'.format(mk_dir_name))
-    os.system('attrib +h \"{}\\poster.ico\"'.format(mk_dir_name))
+    os.system(f'attrib +r "{mk_dir_name}"')
+    os.system(f'attrib +s +h "{desktop_ini_path}"')
+    os.system(f'attrib +h "{os.path.join(mk_dir_name, "poster.ico")}"')
     return True
 
 
@@ -182,6 +182,7 @@ def handler(dir_path: str, imdbid: str = None, tmdbid: str = None, type_: str = 
             if os.path.isfile(dir_path):
                 return
             dir_list = os.listdir(dir_path)
+            s_name, season= None, None
             for file in dir_list:
                 file_path = os.path.join(dir_path, file)
                 if os.path.isfile(file_path):
@@ -193,5 +194,7 @@ def handler(dir_path: str, imdbid: str = None, tmdbid: str = None, type_: str = 
                 chenge_cover_tv(dir_path, all_info, cast)
                 name = all_info["full_name"]
                 print(f"Folder icon changed successfully. | {name}")
+            else:
+                print(f"Not found any data. | {name}")
                     
     return
